@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Estrés laboral – Interactivo</title>
+  <title>Estrés Laboral – Interactivo</title>
 
   <style>
     body {
@@ -59,91 +59,46 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.12);
       background: #eef7ff;
     }
-    .info-card.selected {
-      border-color: #4e73df;
-      background: #e0ebff;
+    .recommendation-box {
+      background: #eef3ff;
+      border-left: 5px solid #4e73df;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      margin-top: 1.4rem;
     }
-    /* Pop-up overlay */
-    .popup-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.45);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 50;
-    }
-    .popup-content {
-      background: #ffffff;
-      color: #1e293b;
-      border-radius: 18px;
-      padding: 1.6rem 1.8rem;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      position: relative;
-    }
-    .popup-content h4 {
-      margin-top: 0;
-      margin-bottom: 0.6rem;
-    }
-    .popup-close {
-      position: absolute;
-      top: 0.7rem;
-      right: 0.9rem;
-      background: transparent;
-      border: none;
-      font-size: 1.3rem;
-      cursor: pointer;
-      color: #475569;
-    }
-    .popup-note {
-      margin-top: 0.8rem;
-      font-size: 0.85rem;
-      color: #64748b;
-    }
-    .fade-in {
-      animation: fadeInUp 0.6s ease forwards;
-      opacity: 0;
-    }
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .quiz-block {
+    .test-container {
       margin-top: 1.8rem;
+      padding: 1.2rem 0;
     }
-    .quiz-block h4 {
-      margin-bottom: 0.5rem;
-    }
-    .quiz-options {
+    .test-options {
       display: flex;
-      gap: 0.8rem;
+      flex-wrap: wrap;
+      gap: 0.6rem;
       margin-top: 0.6rem;
     }
-    .quiz-options button {
-      border: none;
+    .test-option {
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+      padding: 0.45rem 0.9rem;
       border-radius: 999px;
-      padding: 0.6rem 1.2rem;
       font-size: 0.9rem;
       cursor: pointer;
-      background: #4e73df;
-      color: #fff;
-      transition: background 0.15s ease;
+      transition: all 0.15s ease;
     }
-    .quiz-options button:hover {
-      background: #3b5ecb;
+    .test-option.selected {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
     }
-    .quiz-feedback {
-      margin-top: 0.7rem;
-      font-size: 0.9rem;
-      color: #333;
+    #stress-feedback {
+      margin-top: 20px;
+      padding: 20px;
+      background: #667eea;
+      color: white;
+      border-radius: 10px;
+    }
+    @media (max-width: 600px) {
+      .card { padding: 1.4rem 1rem; }
     }
   </style>
 </head>
@@ -151,113 +106,96 @@
 <body>
 
 <div class="content-wrapper">
-  <section class="card fade-in">
-    <h2>🔴 Estrés laboral</h2>
-    <p class="subtitle">Cuando las exigencias superan los recursos</p>
+  <section class="card">
+    <h2>💼 Estrés laboral</h2>
+    <p class="subtitle">¿Qué es el estrés laboral?</p>
 
-    <h3>¿Qué es el estrés laboral?</h3>
+    <h3>Comprendiendo el estrés en el trabajo</h3>
     <p>
-      Se entiende que el estrés laboral ocurre cuando las exigencias del trabajo no se ajustan a las capacidades, los recursos o las necesidades de quienes lo realizan. :contentReference[oaicite:1]{index=1}  
+      El estrés es una <strong>respuesta biológica normal</strong> ante situaciones que percibimos como desafiantes o amenazantes. 
+      Sin embargo, cuando se mantiene alto por largos periodos, afecta el rendimiento, la creatividad y el bienestar. 
+      Reconocerlo a tiempo es clave para actuar desde la asertividad.
     </p>
 
-    <h3>Factores de riesgo</h3>
+    <h3>Causas comunes del estrés laboral</h3>
     <div class="card-grid">
-      <div class="info-card" data-id="carga">
-        <h4>🏋️ Carga excesiva</h4>
-        <p>Tareas con plazos muy ajustados o volumen de trabajo alto.</p>
+      <div class="info-card" data-id="sobrecarga">
+        <h4>📊 Sobrecarga de trabajo</h4>
+        <p>Exceso de tareas y responsabilidades en poco tiempo</p>
+      </div>
+      <div class="info-card" data-id="plazos">
+        <h4>⏰ Plazos ajustados</h4>
+        <p>Presión constante por cumplir deadlines</p>
+      </div>
+      <div class="info-card" data-id="conflictos">
+        <h4>👥 Conflictos interpersonales</h4>
+        <p>Dificultades en las relaciones con compañeros o superiores</p>
       </div>
       <div class="info-card" data-id="control">
-        <h4>🧠 Falta de control</h4>
-        <p>Pocas posibilidades de decidir cómo o cuándo hacer el trabajo.</p>
-      </div>
-      <div class="info-card" data-id="apoyo">
-        <h4>🤝 Falta de apoyo</h4>
-        <p>No contar con respaldo del equipo o supervisores.</p>
+        <h4>🎯 Falta de control</h4>
+        <p>Poca autonomía sobre las decisiones y el trabajo</p>
       </div>
     </div>
 
-    <div class="quiz-block">
-      <h4>Pregunta rápida:</h4>
-      <p>¿Cuál de estos tres factores crees que genera más estrés en tu trabajo hoy?</p>
-      <div class="quiz-options">
-        <button data-quiz="carga">Carga excesiva</button>
-        <button data-quiz="control">Falta de control</button>
-        <button data-quiz="apoyo">Falta de apoyo</button>
+    <h3>Señales de alerta</h3>
+    <ul>
+      <li><strong>Físicas:</strong> Fatiga constante, dolores de cabeza, tensión muscular</li>
+      <li><strong>Emocionales:</strong> Irritabilidad, ansiedad, sensación de agobio</li>
+      <li><strong>Cognitivas:</strong> Dificultad para concentrarse, olvidos frecuentes</li>
+      <li><strong>Conductuales:</strong> Problemas de sueño, cambios en el apetito</li>
+    </ul>
+
+    <div class="recommendation-box">
+      <h4>💡 Tip de prevención</h4>
+      <p>
+        La organización, las pausas activas, el apoyo social y establecer límites claros son herramientas fundamentales
+        para prevenir el estrés laboral crónico.
+      </p>
+    </div>
+
+    <div class="test-container">
+      <h3>🔍 Actividad rápida</h3>
+      <p style="color: #4a5568; margin-bottom: 20px;">
+        Selecciona cuál de estas frases representa mejor tu estado actual:
+      </p>
+      <div class="test-options">
+        <div class="test-option" onclick="selectStressOption(this, 'concentrar')">
+          Me cuesta concentrarme
+        </div>
+        <div class="test-option" onclick="selectStressOption(this, 'irrito')">
+          Me irrito fácilmente
+        </div>
+        <div class="test-option" onclick="selectStressOption(this, 'cansancio')">
+          Siento cansancio cotidiano
+        </div>
+        <div class="test-option" onclick="selectStressOption(this, 'ninguna')">
+          Ninguna de las anteriores
+        </div>
       </div>
-      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <div id="stress-feedback" style="display: none;"></div>
     </div>
 
   </section>
 </div>
 
-<div class="popup-overlay" id="popup-overlay">
-  <div class="popup-content" id="popup-content">
-    <button class="popup-close" id="popup-close">&times;</button>
-    <h4 id="popup-title"></h4>
-    <div id="popup-body"></div>
-    <p class="popup-note">Haz clic fuera del recuadro o en la “×” para cerrar.</p>
-  </div>
-</div>
-
 <script>
-  const popData = {
-    carga: {
-      title: '🏋️ Carga excesiva',
-      body: `
-        <p>Cuando la demanda laboral es muy alta (muchas tareas, plazos ajustados, ritmo acelerado), el sistema nervioso se activa para “responder” rápidamente, lo que dispara la emoción de alerta.</p>
-        <p>En el marco de la alfabetización emocional, reconocer ese estado es el primer paso para elegir otra forma de actuar.</p>
-      `
-    },
-    control: {
-      title: '🧠 Falta de control',
-      body: `
-        <p>Sentirse sin autonomía o sin poder decidir cómo hacer el trabajo es uno de los factores que más correlaciona con estrés crónico. :contentReference[oaicite:2]{index=2}</p>
-        <p>Pregúntate: “¿Qué puedo decidir hoy, aunque sea pequeño, sobre mi trabajo?”</p>
-      `
-    },
-    apoyo: {
-      title: '🤝 Falta de apoyo',
-      body: `
-        <p>El apoyo social y organizacional amortigua el impacto del estrés laboral. Sin ese respaldo, la carga emocional se eleva. :contentReference[oaicite:3]{index=3}</p>
-        <p>Identifica quién puede ayudarte hoy: un colega, un supervisor, o tú mismo reconociendo tu límite.</p>
-      `
-    }
-  };
+  function selectStressOption(element, value) {
+    const siblings = element.parentElement.children;
+    Array.from(siblings).forEach(sib => sib.classList.remove('selected'));
+    element.classList.add('selected');
 
-  document.querySelectorAll('.info-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const id = card.getAttribute('data-id');
-      const data = popData[id];
-      if (data) {
-        document.getElementById('popup-title').textContent = data.title;
-        document.getElementById('popup-body').innerHTML = data.body;
-        document.getElementById('popup-overlay').style.display = 'flex';
-      }
-    });
-  });
+    const feedback = document.getElementById('stress-feedback');
+    feedback.style.display = 'block';
 
-  document.getElementById('popup-close').addEventListener('click', () => {
-    document.getElementById('popup-overlay').style.display = 'none';
-  });
-  document.getElementById('popup-overlay').addEventListener('click', e => {
-    if (e.target === document.getElementById('popup-overlay')) {
-      document.getElementById('popup-overlay').style.display = 'none';
-    }
-  });
+    const responses = {
+      concentrar: '🧠 La dificultad para concentrarse es una señal común de sobrecarga cognitiva. Te recomendamos: tomar pausas de 5 minutos cada hora, hacer ejercicios de respiración y organizar tus tareas por prioridad.',
+      irrito: '😤 La irritabilidad indica que tu sistema nervioso está en alerta. Prueba: salir a caminar 10 minutos, practicar la técnica 4-6-4 de respiración, y comunicar asertivamente que necesitas un momento.',
+      cansancio: '😴 El cansancio crónico afecta tu rendimiento y bienestar. Considera: revisar tus horas de sueño, delegar tareas cuando sea posible, y establecer límites claros entre trabajo y vida personal.',
+      ninguna: '✨ ¡Excelente! Mantener este estado requiere seguir con buenos hábitos: pausas regulares, comunicación asertiva y autocuidado constante. Recuerda que prevenir es más fácil que recuperar.'
+    };
 
-  // Quiz logic
-  const feedback = document.getElementById('quiz-feedback');
-  document.querySelectorAll('[data-quiz]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const sel = btn.getAttribute('data-quiz');
-      feedback.textContent = 'Has seleccionado: ' + (btn.textContent) + '. ¿Te atreves a identificar el siguiente paso que puedes dar para reducir este factor de estrés?';
-      feedback.style.color = '#1e293b';
-    });
-  });
-
-  window.addEventListener('load', () => {
-    document.querySelector('.card').classList.add('fade-in');
-  });
+    feedback.innerHTML = responses[value];
+  }
 </script>
 
 </body>
